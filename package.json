@@ -1,0 +1,37 @@
+{
+  "name": "eformsign-roi-simulator",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "agentation": "^1.3.2",
+    "downloadjs": "^1.4.7",
+    "framer-motion": "11.0.8",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.14.0",
+    "jspdf": "^4.0.0",
+    "lucide-react": "0.344.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-is": "^19.2.4",
+    "recharts": "^3.7.0",
+    "sonner": "^2.0.7"
+  },
+  "devDependencies": {
+    "@types/downloadjs": "^1.4.6",
+    "@types/node": "^22.19.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "gh-pages": "^6.3.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0",
+    "vitest": "^4.0.18"
+  }
+}
