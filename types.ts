@@ -14,6 +14,8 @@ export interface ROIResult {
     netSaving: number;
     roiPercent: number;
     paybackDays: number;
+    daysBefore: number;
+    daysAfter: number;
     daysSaved: number;
     paperSaved: number;
     treesSaved: number;

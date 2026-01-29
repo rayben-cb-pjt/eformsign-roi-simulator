@@ -35,9 +35,9 @@ export const DetailTable: React.FC<DetailTableProps> = ({ result, isPdf = false 
         {
             title: "연간 업무 소요 시간",
             desc: "계약 및 문서 관리 업무 시간 환산",
-            before: `약 ${Math.round(result.daysSaved)}일`,
-            after: "1일 미만",
-            improvement: "99% 단축",
+            before: `약 ${Math.round(result.daysBefore).toLocaleString()}일`,
+            after: result.daysAfter < 1 ? "1일 미만" : `약 ${Math.round(result.daysAfter).toLocaleString()}일`,
+            improvement: `${Math.round((result.daysSaved / result.daysBefore) * 100)}% 단축`,
             isCurrency: false
         }
     ];
@@ -73,40 +73,40 @@ export const DetailTable: React.FC<DetailTableProps> = ({ result, isPdf = false 
                                     {...(isPdf ? {} : { initial: { opacity: 0, x: -10 }, animate: { opacity: 1, x: 0 }, transition: { delay: index * 0.1 } })}
                                     className="hover:bg-slate-50 transition-colors group"
                                 >
-                                <td className="px-6 py-5">
-                                    <div className="font-bold text-slate-800 text-base">{row.title}</div>
-                                    <div className="text-xs text-slate-500 font-normal mt-1">{row.desc}</div>
-                                </td>
-                                <td className="px-6 py-5 text-center text-slate-500 font-medium text-base">
-                                    {row.before}
-                                </td>
-                                <td className="px-6 py-5 text-center font-bold text-brand-600 bg-brand-50/50 text-base relative">
-                                    {row.after}
-                                    <div className="absolute inset-y-0 left-0 w-[1px] bg-brand-100"></div>
-                                </td>
-                                <td className="px-6 py-5 text-center font-bold text-accent-teal">
-                                    <span className={`pdf-improvement-badge relative inline-flex flex-col items-center justify-center bg-teal-50 rounded-lg border border-teal-100 text-teal-700 ${row.improvementLabel ? 'px-4 py-2 pdf-improvement-badge--stacked' : 'px-3 py-1.5'}`}>
-                                        {row.improvementLabel && (
+                                    <td className="px-6 py-5">
+                                        <div className="font-bold text-slate-800 text-base">{row.title}</div>
+                                        <div className="text-xs text-slate-500 font-normal mt-1">{row.desc}</div>
+                                    </td>
+                                    <td className="px-6 py-5 text-center text-slate-500 font-medium text-base">
+                                        {row.before}
+                                    </td>
+                                    <td className="px-6 py-5 text-center font-bold text-brand-600 bg-brand-50/50 text-base relative">
+                                        {row.after}
+                                        <div className="absolute inset-y-0 left-0 w-[1px] bg-brand-100"></div>
+                                    </td>
+                                    <td className="px-6 py-5 text-center font-bold text-accent-teal">
+                                        <span className={`pdf-improvement-badge relative inline-flex flex-col items-center justify-center bg-teal-50 rounded-lg border border-teal-100 text-teal-700 ${row.improvementLabel ? 'px-4 py-2 pdf-improvement-badge--stacked' : 'px-3 py-1.5'}`}>
+                                            {row.improvementLabel && (
+                                                <span
+                                                    className="pdf-improvement-label text-[10px] uppercase tracking-wide text-teal-600/70 mb-0.5"
+                                                    style={{ color: '#0f766e', opacity: 0.7 }}
+                                                >
+                                                    {row.improvementLabel}
+                                                </span>
+                                            )}
                                             <span
-                                                className="pdf-improvement-label text-[10px] uppercase tracking-wide text-teal-600/70 mb-0.5"
-                                                style={{ color: '#0f766e', opacity: 0.7 }}
+                                                className={`pdf-improvement-value font-bold ${row.isCurrency ? 'text-lg leading-none' : 'text-sm'}`}
+                                                style={{ color: '#0f766e', opacity: 1 }}
                                             >
-                                                {row.improvementLabel}
+                                                {improvementText}
                                             </span>
-                                        )}
-                                        <span
-                                            className={`pdf-improvement-value font-bold ${row.isCurrency ? 'text-lg leading-none' : 'text-sm'}`}
-                                            style={{ color: '#0f766e', opacity: 1 }}
-                                        >
-                                            {improvementText}
+                                            <span
+                                                className={`pdf-improvement-overlay hidden font-bold text-teal-700 ${row.isCurrency ? 'text-lg leading-none' : 'text-sm'}`}
+                                            >
+                                                {improvementText}
+                                            </span>
                                         </span>
-                                        <span
-                                            className={`pdf-improvement-overlay hidden font-bold text-teal-700 ${row.isCurrency ? 'text-lg leading-none' : 'text-sm'}`}
-                                        >
-                                            {improvementText}
-                                        </span>
-                                    </span>
-                                </td>
+                                    </td>
                                 </Row>
                             );
                         })}

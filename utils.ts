@@ -31,9 +31,7 @@ export const calculateROI = (params: SimulationParams): ROIResult => {
     const savingAmount = totalBefore - totalAfter;
     const netSaving = savingAmount;
     const roiPercent = totalAfter > 0 ? (netSaving / totalAfter) * 100 : 0;
-    const paybackDays = netSaving > 0 ? (totalAfter / (netSaving / 365)) : 0; // ?????? ??? ??? ???
-
-// 단순화된 회수 기간 계산
+    const paybackDays = netSaving > 0 ? (totalAfter / (netSaving / 365)) : 0;
 
     // 시간 로직
     const avgTimeBefore = (CONSTANTS.FACE_TIME_HOURS * faceRatioDecimal) + (CONSTANTS.MAIL_TIME_HOURS * mailRatioDecimal);
@@ -42,6 +40,8 @@ export const calculateROI = (params: SimulationParams): ROIResult => {
 
     const timeSavedHours = totalTimeHoursBefore - totalTimeHoursAfter;
     const daysSaved = timeSavedHours / CONSTANTS.WORK_DAY_HOURS;
+    const daysBefore = totalTimeHoursBefore / CONSTANTS.WORK_DAY_HOURS;
+    const daysAfter = totalTimeHoursAfter / CONSTANTS.WORK_DAY_HOURS;
 
     // ESG 로직
     const paperSaved = contractCount * CONSTANTS.A4_PER_CONTRACT;
@@ -58,6 +58,8 @@ export const calculateROI = (params: SimulationParams): ROIResult => {
         netSaving,
         roiPercent,
         paybackDays: paybackDays < 0 ? 0 : paybackDays,
+        daysBefore,
+        daysAfter,
         daysSaved,
         paperSaved,
         treesSaved,
