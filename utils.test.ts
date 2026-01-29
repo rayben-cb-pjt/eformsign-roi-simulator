@@ -15,20 +15,19 @@ describe('calculateROI', () => {
         const result = calculateROI(defaultParams);
 
         // 도입 전 비용 검증
-        // Face: 50% * 120,000 = 60,000
-        // Mail: 50% * 16,830 = 8,415
-        // Avg Before: 68,415
-        const expectedAvgCostBefore = (CONSTANTS.FACE_COST * 0.5) + (CONSTANTS.MAIL_COST * 0.5);
+        // Face: 60,000, Mail: 15,000
+        // Avg Before (50%): 37,500
+        const costFaceBefore = CONSTANTS.FACE_OUT_OF_POCKET_COST + (CONSTANTS.FACE_TIME_HOURS * CONSTANTS.HOURLY_WAGE);
+        const costMailBefore = CONSTANTS.MAIL_OUT_OF_POCKET_COST + (CONSTANTS.MAIL_TIME_HOURS * CONSTANTS.HOURLY_WAGE);
+        const expectedAvgCostBefore = (costFaceBefore * 0.5) + (costMailBefore * 0.5);
         expect(result.costBefore).toBeCloseTo(expectedAvgCostBefore);
 
-        // 도입 전 총 비용
-        // 68,415 * 10,000 = 684,150,000
+        // 도입 전 총 비용: 37,500 * 10,000 = 375,000,000
         expect(result.totalBefore).toBeCloseTo(expectedAvgCostBefore * 10000);
 
-        // 도입 후 총 비용
-        // (800 * 10,000) + ??(0) = 8,000,000
-        const expectedTotalAfter = (800 * 10000);
-        expect(result.totalAfter).toBe(expectedTotalAfter);
+        // 도입 후 총 비용: (800 + 0.05*30000) * 10,000 = 2,300 * 10,000 = 23,000,000
+        const expectedTotalAfter = (800 + (CONSTANTS.ESIGN_TIME_HOURS * CONSTANTS.HOURLY_WAGE)) * 10000;
+        expect(result.totalAfter).toBeCloseTo(expectedTotalAfter);
 
         // 절감액 (운영 비용 절감)
         // 684,150,000 - 8,000,000(사용료) = 676,150,000
