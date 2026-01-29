@@ -27,18 +27,22 @@ const App: React.FC = () => {
 
     const result: ROIResult = useMemo(() => calculateROI(params), [params]);
 
-    // 유도된 데이터 (차트 스케일링용)
+    // 유도된 데이터 (차트 스케일링용) - 현재 선택된 계약 건수를 기준으로 동적으로 변경
     const scalingData = useMemo(() => {
-        const multipliers = [0.1, 0.3, 0.5, 1, 2, 3];
+        // 현재 값의 0.5배 ~ 2배 범위로 차트 데이터 생성 (최소 100건 보장)
+        const multipliers = [0.5, 0.75, 1, 1.25, 1.5, 2];
         return multipliers.map(m => {
-            const tempCount = 10000 * m;
+            const tempCount = Math.max(100, Math.round(params.contractCount * m));
             const tempParams = { ...params, contractCount: tempCount };
             const tempRes = calculateROI(tempParams);
             return {
                 contracts: tempCount,
-                saving: parseFloat((tempRes.netSaving / 100000000).toFixed(2))
+                saving: parseFloat((tempRes.netSaving / 100000000).toFixed(2)) // 억 단위
             };
-        });
+        }).sort((a, b) => a.contracts - b.contracts) // 순서 보장
+            .filter((item, index, self) =>
+                index === self.findIndex((t) => t.contracts === item.contracts)
+            ); // 중복 제거
     }, [params]);
 
     const updateParam = (key: keyof SimulationParams, value: number) => {
@@ -191,14 +195,14 @@ const App: React.FC = () => {
                                     <SliderControl
                                         label="연간 계약 건수"
                                         value={params.contractCount}
-                                        min={100} max={50000} step={100} unit="건"
+                                        min={100} max={100000} step={100} unit="건"
                                         note="1건은 A4 2장(템플릿 기준)으로 계산합니다."
                                         onChange={(v) => updateParam('contractCount', v)}
                                     />
                                     <SliderControl
                                         label="기존 서면(대면) 계약 비율"
                                         value={params.faceToFaceRatio}
-                                        min={0} max={100} step={10} unit="%"
+                                        min={0} max={100} step={1} unit="%"
                                         note="대면 50,000원/건(교통+식대+인건비), 등기 10,000원/건(우편료+재료비+인건비) 기준입니다."
                                         onChange={(v) => updateParam('faceToFaceRatio', v)}
                                     />
@@ -206,14 +210,14 @@ const App: React.FC = () => {
                                     <SliderControl
                                         label="전자계약 건당 처리 비용"
                                         value={params.targetCostPerUse}
-                                        min={100} max={2000} step={10} unit="원"
+                                        min={100} max={2000} step={1} unit="원"
                                         note="요금제 예시 단가를 입력합니다(건당 비용)."
                                         onChange={(v) => updateParam('targetCostPerUse', v)}
                                     />
                                     <SliderControl
                                         label="추가 옵션 비용(연간)"
                                         value={params.annualOptionsCost}
-                                        min={0} max={20000000} step={500000} unit="원"
+                                        min={0} max={20000000} step={10000} unit="원"
                                         note="SMS·본인확인·타임스탬프 등 사용량 옵션의 연간 합계입니다."
                                         onChange={(v) => updateParam('annualOptionsCost', v)}
                                         formatValue={(v) => formatCurrency(v)}
