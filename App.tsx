@@ -76,7 +76,7 @@ const App: React.FC = () => {
                 <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-xl transition-all duration-300 no-print">
                     <div className="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
                         <div className="flex items-center gap-3 cursor-pointer group">
-                            <img src="/eformsign_logo.png" alt="eformsign" className="h-8 w-auto object-contain" />
+                            <img src={`${import.meta.env.BASE_URL}eformsign_logo.png`} alt="eformsign" className="h-8 w-auto object-contain" />
                             <span className="text-lg font-bold text-slate-800 tracking-wide">
                                 ROI <span className="text-brand-600 font-medium">시뮬레이터</span>
                             </span>
@@ -99,7 +99,7 @@ const App: React.FC = () => {
                 >
                     <div className="pdf-only hidden items-center justify-between mb-6 pt-2">
                         <div className="flex items-center gap-3">
-                            <img src="/eformsign_logo.png" alt="eformsign" className="h-8 w-auto object-contain mt-1" />
+                            <img src={`${import.meta.env.BASE_URL}eformsign_logo.png`} alt="eformsign" className="h-8 w-auto object-contain mt-1" />
                             <span className="text-lg font-bold text-slate-800 tracking-wide">
                                 ROI <span className="text-brand-600 font-medium">시뮬레이터</span>
                             </span>
