@@ -25,7 +25,7 @@ export const DetailTable: React.FC<DetailTableProps> = ({ result, isPdf = false 
         },
         {
             title: "연간 총 운영 비용",
-            desc: "인건비, 자재비, 솔루션 이용료 등 포함",
+            desc: "인건비, 자재비, 이폼사인 이용료 등 포함",
             before: `${formatCurrency(result.totalBefore)}원`,
             after: `${formatCurrency(result.totalAfter)}원`,
             improvement: formatCurrency(result.savingAmount),

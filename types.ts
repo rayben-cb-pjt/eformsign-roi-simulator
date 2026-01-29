@@ -29,6 +29,7 @@ export const CONSTANTS = {
     FACE_TIME_HOURS: 1.5, // 수정: 1시간 30분 (왕복 이동 포함)
     MAIL_TIME_HOURS: 0.33, // 수정: 약 20분 (출력~발송~보관)
     ESIGN_TIME_HOURS: 0.05, // 수정: 약 3분 (문서 준비 및 발송)
+    HOURLY_WAGE: 30000, // 추가: 시간당 통상 임금 (담당자 인건비 계산용)
     A4_PER_CONTRACT: 2,
     WORK_DAY_HOURS: 8,
     WORK_DAYS_PER_YEAR: 250, // 대략적인 연간 근무일수

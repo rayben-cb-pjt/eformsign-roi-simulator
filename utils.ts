@@ -23,7 +23,10 @@ export const calculateROI = (params: SimulationParams): ROIResult => {
     // 비용 로직
     const avgCostBefore = (CONSTANTS.FACE_COST * faceRatioDecimal) + (CONSTANTS.MAIL_COST * mailRatioDecimal);
     const perContractOptions = contractCount > 0 ? (annualOptionsCost / contractCount) : 0;
-    const avgCostAfter = targetCostPerUse + perContractOptions;
+
+    // 도입 후 비용: 건당 솔루션 비용 + 건당 옵션 비용 + 건당 인건비(3분)
+    const laborCostAfter = CONSTANTS.ESIGN_TIME_HOURS * CONSTANTS.HOURLY_WAGE;
+    const avgCostAfter = targetCostPerUse + perContractOptions + laborCostAfter;
 
     const totalBefore = avgCostBefore * contractCount;
     const totalAfter = avgCostAfter * contractCount;
