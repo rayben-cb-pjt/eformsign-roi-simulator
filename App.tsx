@@ -199,7 +199,7 @@ const App: React.FC = () => {
                                         label="기존 서면(대면) 계약 비율"
                                         value={params.faceToFaceRatio}
                                         min={0} max={100} step={10} unit="%"
-                                        note="대면 120,000원/건(교통 5만+숙박 5만+식비 2만), 등기 16,830원/건(버스 3,000+등기 3,800+시급 10,030) 기준입니다."
+                                        note="대면 50,000원/건(교통+식대+인건비), 등기 10,000원/건(우편료+재료비+인건비) 기준입니다."
                                         onChange={(v) => updateParam('faceToFaceRatio', v)}
                                     />
                                     <div className="h-px bg-slate-100 my-6"></div>
