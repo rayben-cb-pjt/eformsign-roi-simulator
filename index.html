@@ -50,6 +50,22 @@
             /* Slate 900 */
         }
 
+        /* Left sidebar stretch to match right content */
+        .grid.items-stretch>div:first-child {
+            align-self: stretch;
+        }
+
+        .grid.items-stretch>div:first-child>div:last-of-type {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .grid.items-stretch>div:first-child>div:last-of-type>div {
+            flex: 1;
+            height: 100%;
+        }
+
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
@@ -114,7 +130,7 @@
         }
     </style>
 
-  <script type="module" crossorigin src="/eformsign-roi-simulator/assets/index-D_S2F7ZU.js"></script>
+  <script type="module" crossorigin src="/eformsign-roi-simulator/assets/index-CJzqgvXH.js"></script>
 </head>
 
 <body>
