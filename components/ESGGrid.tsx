@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { TreePine, Cloud, Droplets } from 'lucide-react';
 import { ROIResult } from '../types';
 import { AnimatedNumber } from './AnimatedNumber';

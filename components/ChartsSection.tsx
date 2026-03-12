@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, LineChart, Line
 } from 'recharts';
@@ -45,21 +45,37 @@ export const ChartsSection: React.FC<ChartsSectionProps> = ({ result, scalingDat
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full p-6 break-inside-avoid">
-            <Panel className="relative">
+            <Panel className="relative min-w-0">
                 <h3 className="text-sm font-bold text-slate-700 mb-6 flex items-center gap-2 relative z-10">
                     <span className="w-1.5 h-4 bg-brand-600 rounded-full"></span>
                     비용 비교 분석 (도입 전후)
                 </h3>
-                <div className="h-[250px] w-full relative z-10">
+                <div className="h-[250px] w-full min-w-0 min-h-[200px] relative z-10">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart
                             data={barData}
-                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                            barSize={40}
+                            margin={{ top: 16, right: 0, left: 0, bottom: 0 }}
+                            barSize={46}
+                            barCategoryGap="30%"
+                            barGap={6}
                         >
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                            <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} />
-                            <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 12 }} unit="억" />
+                            <XAxis
+                                dataKey="name"
+                                axisLine={false}
+                                tickLine={false}
+                                tick={{ fill: '#64748b', fontSize: 12 }}
+                                padding={{ left: 16, right: 16 }}
+                                tickMargin={8}
+                            />
+                            <YAxis
+                                axisLine={false}
+                                tickLine={false}
+                                tick={{ fill: '#64748b', fontSize: 12 }}
+                                unit="억"
+                                width={32}
+                                tickMargin={8}
+                            />
                             <Tooltip
                                 content={<CustomTooltip />}
                                 cursor={{ fill: '#f1f5f9' }}
@@ -87,7 +103,7 @@ export const ChartsSection: React.FC<ChartsSectionProps> = ({ result, scalingDat
                 </div>
             </Panel>
 
-            <Panel className="relative">
+            <Panel className="relative min-w-0">
                 <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-teal-50 rounded-full blur-3xl -mr-16 -mt-16"></div>
                 </div>
@@ -95,25 +111,32 @@ export const ChartsSection: React.FC<ChartsSectionProps> = ({ result, scalingDat
                     <span className="w-1.5 h-4 bg-accent-teal rounded-full"></span>
                     계약 규모별 예상 절감액 추이
                 </h3>
-                <div className="h-[250px] w-full relative z-10">
+                <div className="h-[250px] w-full min-w-0 min-h-[200px] relative z-10">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart
                             data={scalingData}
-                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                            margin={{ top: 16, right: 0, left: 0, bottom: 0 }}
                         >
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                             <XAxis
                                 dataKey="contracts"
+                                type="number"
+                                domain={['dataMin', 'dataMax']}
+                                ticks={scalingData.map((point) => point.contracts)}
                                 axisLine={false}
                                 tickLine={false}
                                 tick={{ fill: '#64748b', fontSize: 12 }}
                                 tickFormatter={(val) => `${val / 1000}k`}
+                                padding={{ left: 12, right: 12 }}
+                                tickMargin={8}
                             />
                             <YAxis
                                 axisLine={false}
                                 tickLine={false}
                                 tick={{ fill: '#64748b', fontSize: 12 }}
                                 unit="억"
+                                width={32}
+                                tickMargin={8}
                             />
                             <Tooltip
                                 content={<CustomTooltip />}

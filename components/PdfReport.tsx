@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ROIResult } from '../types';
 import { KPICard } from './KPICard';
 import { ChartsSection } from './ChartsSection';

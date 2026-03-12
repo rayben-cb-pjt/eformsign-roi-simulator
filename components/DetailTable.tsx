@@ -25,7 +25,7 @@ export const DetailTable: React.FC<DetailTableProps> = ({ result, isPdf = false 
         },
         {
             title: "연간 총 운영 비용",
-            desc: "인건비, 자재비, 이폼사인 이용료 등 포함",
+            desc: "전자계약 연간 구독료 포함",
             before: `${formatCurrency(result.totalBefore)}원`,
             after: `${formatCurrency(result.totalAfter)}원`,
             improvement: formatCurrency(result.savingAmount),
@@ -39,7 +39,28 @@ export const DetailTable: React.FC<DetailTableProps> = ({ result, isPdf = false 
             after: result.daysAfter < 1 ? "1일 미만" : `약 ${Math.round(result.daysAfter).toLocaleString()}일`,
             improvement: `${Math.round((result.daysSaved / result.daysBefore) * 100)}% 단축`,
             isCurrency: false
-        }
+        },
+        // AI비서 효과 행 (aiTotalSaving > 0일 때만 포함)
+        ...(result.aiTotalSaving > 0 ? [
+            {
+                title: "🤖 AI비서: 서식 설정 자동화",
+                desc: "AI가 서식 항목·속성·워크플로우를 자동 설정 (90% 시간 단축)",
+                before: "수동 설정 (건당 30분)",
+                after: "AI 자동 설정 (건당 3분)",
+                improvement: formatCurrency(result.aiTemplateSaving),
+                improvementLabel: "절감액",
+                isCurrency: true
+            },
+            {
+                title: "🤖 AI비서: 입력 오류 방지",
+                desc: "AI가 입력 규칙 자동 적용으로 재작업 비용 80% 절감",
+                before: "수동 입력 (오류율 5%)",
+                after: "AI 자동 검증",
+                improvement: formatCurrency(result.aiErrorSaving),
+                improvementLabel: "절감액",
+                isCurrency: true
+            }
+        ] : [])
     ];
 
     return (

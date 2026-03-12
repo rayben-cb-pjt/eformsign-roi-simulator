@@ -45,7 +45,7 @@ export const KPICard: React.FC<KPICardProps> = ({ title, value, prefix, suffix, 
                 
                 <div>
                     <h4 className="text-slate-500 text-xs font-semibold uppercase tracking-wider mb-1">{title}</h4>
-                    <div className="text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1">
+                    <div className="text-2xl lg:text-3xl font-bold text-slate-900 tracking-tight flex items-baseline gap-1 pdf-kpi-value">
                         {prefix && <span>{prefix}</span>}
                         <AnimatedNumber value={value} format={format} animate={!isPdf} />
                         {suffix && <span className="text-sm font-semibold text-slate-400">{suffix}</span>}

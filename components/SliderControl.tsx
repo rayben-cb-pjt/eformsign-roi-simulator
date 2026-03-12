@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { LucideIcon } from 'lucide-react';
 
 interface SliderControlProps {
     label: string;
@@ -10,10 +11,11 @@ interface SliderControlProps {
     onChange: (val: number) => void;
     formatValue?: (val: number) => string;
     note?: string;
+    icon?: LucideIcon;
 }
 
-export const SliderControl: React.FC<SliderControlProps> = ({ 
-    label, value, min, max, step, unit, onChange, formatValue, note
+export const SliderControl: React.FC<SliderControlProps> = ({
+    label, value, min, max, step, unit, onChange, formatValue, note, icon: Icon
 }) => {
     const percentage = ((value - min) / (max - min)) * 100;
     const [isEditing, setIsEditing] = useState(false);
@@ -69,7 +71,7 @@ export const SliderControl: React.FC<SliderControlProps> = ({
                         <span className="pdf-slider-value-text-pdf hidden w-24 text-right tabular-nums">
                             {formattedValue}
                         </span>
-                        <span className="text-xs font-normal text-slate-500 whitespace-nowrap">{unit}</span>
+                        <span className="text-xs font-normal text-slate-500 whitespace-nowrap pdf-slider-value-unit">{unit}</span>
                     </span>
                 </div>
             </div>
@@ -91,12 +93,12 @@ export const SliderControl: React.FC<SliderControlProps> = ({
                     className="absolute w-full h-full opacity-0 cursor-pointer z-20"
                 />
                 <div className="absolute w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-                    <div 
+                    <div
                         className="h-full bg-brand-600 transition-all duration-150 ease-out"
                         style={{ width: `${percentage}%` }}
                     />
                 </div>
-                <div 
+                <div
                     className="absolute h-4 w-4 bg-white border-2 border-brand-600 rounded-full shadow-sm z-10 pointer-events-none transition-all duration-150 ease-out group-hover:scale-125"
                     style={{ left: `clamp(0px, ${percentage}%, calc(100% - 16px))` }}
                 />
