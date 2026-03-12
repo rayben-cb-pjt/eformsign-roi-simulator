@@ -6,6 +6,10 @@ on:
       - master
   workflow_dispatch:
 
+# TODO(2026-05): Recheck GitHub Pages actions for native Node 24 support.
+# As of 2026-03-12, actions/configure-pages, actions/deploy-pages, and
+# upload-pages-artifact's internal upload-artifact dependency still emit
+# Node 20 deprecation warnings even though deployment succeeds.
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
