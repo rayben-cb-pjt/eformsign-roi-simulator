@@ -136,8 +136,10 @@ const App: React.FC = () => {
                                 </span>
                             </div>
                             <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-sm leading-relaxed font-medium">
-                                단 3초만에 확인 가능합니다. 대한민국 1위 전자계약 이폼사인으로 전환 시<br />
-                                <strong className="text-slate-900">숨겨진 순수 이익(Real Profit)</strong>을 지금 확인하세요.
+                                <span className="block">입력한 조건만으로 3초 안에 결과를 확인해 보세요.</span>
+                                <span className="block mt-1">
+                                    <strong className="text-slate-900">이폼사인을 도입했을 때 얼마나 절감할 수 있는지</strong> 한눈에 보여드립니다.
+                                </span>
                             </p>
                         </motion.div>
                     </div>
